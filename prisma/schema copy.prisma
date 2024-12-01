@@ -1,0 +1,180 @@
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+model User {
+  id String @id @default(uuid())
+  name String? 
+  email String @unique
+  // picture String? @db.MediumText
+  password String?
+  refreshToken String? @db.MediumText
+  userType    UserType @default(STUDENT)
+  // chats Chat[]
+  emailVerified Boolean?
+  image       String?
+  resetToken  String?
+  resetTokenExpiry DateTime?
+  role        UserType      @default(STUDENT)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  accounts    Account[]
+  chats       Chat[]    @relation("UserChats")
+
+}
+model Chat {
+  id        String      @id @default(uuid())
+  userId    String   // Changed to String to match User.id
+  title     String
+  messages  Json     @db.Json // Store messages as JSON
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user       User      @relation("UserChats", fields: [userId], references: [id])
+}
+
+model Account {
+  id                 String @id @default(uuid())  // UUID type
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  user               User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String  
+  @@unique([provider, providerAccountId])
+  @@index([userId]) 
+}
+
+model Course {
+  id String @id @default(uuid())
+  userId String
+  title String @db.Text
+  description String? @db.Text
+  imageUrl String? @db.Text
+  price Float?
+  isPublished Boolean @default(false)
+
+  categoryId String?
+  category Category? @relation(fields: [categoryId], references: [id])
+
+  chapters Chapter[]
+  attachments Attachment[]
+  purchases Purchase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
+  @@fulltext([title])
+}
+
+model Category {
+  id String @id @default(uuid())
+  name String @unique
+  courses Course[]
+}
+
+model Attachment {
+  id String @id @default(uuid())
+  name String
+  url String @db.Text
+
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model Chapter {
+  id String @id @default(uuid())
+  title String
+  description String? @db.Text
+  videoUrl String? @db.Text
+  position Int
+  isPublished Boolean @default(false)
+  isFree Boolean @default(false)
+
+  muxData MuxData?
+
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  userProgress UserProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model MuxData {
+  id String @id @default(uuid())
+  assetId String
+  playbackId String?
+
+  chapterId String @unique
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+}
+
+model UserProgress {
+  id String @id @default(uuid())
+  userId String
+
+  chapterId String
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  isCompleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([chapterId])
+  @@unique([userId, chapterId])
+}
+
+model Purchase {
+  id String @id @default(uuid())
+  userId String
+
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  @@unique([userId, courseId])
+  @@index([courseId])
+}
+
+model StripeCustomer {
+  id String @id @default(uuid())
+  userId String @unique
+  stripeCustomerId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+enum UserType {
+  TEACHER
+  STUDENT
+  SUPER_ADMIN
+}
+// enum Role {
+//   user
+//   admin
+// }

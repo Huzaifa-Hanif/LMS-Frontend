@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 500;
+}
+.bg-sidebarcolor {
+  --tw-bg-opacity: 1;
+  background-color: #0369A1;
+  /* background-color: rgb(32 34 34 / var(--tw-bg-opacity)) #202222; */
+}
+
+
+.cl-cardBox {
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 2px !important;
+}
+
+.global-spinner .ant-spin-dot-item {
+  background-color: #000000 !important;
+}
+
+.sidebar-spinner .ant-spin-dot-item {
+  background-color: black !important;
+}
+
+.ant-drawer-content {
+  background-color: #202222 !important;
+}
+.anticon-close {
+  color: black !important;
+}
+
+.markdown > * {
+  all: revert;
+}
+
+/* scroll bar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #4b4b4b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #818181;
+}
+.placeholder-white::placeholder {
+  color: rgba(255, 255, 255, 0.6); /* Light placeholder color */
+}
