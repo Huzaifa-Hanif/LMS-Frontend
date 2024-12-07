@@ -53,5 +53,9 @@ const parseAccessToken = (token) => {
 
 export const isUserType = () => {
   const userData = getUserDataFromLocalStorage();
-  return userData && userData.type === "TEACHER";
+  console.log(userData, "usser");
+  return (
+    (userData && userData.type === "TEACHER") ||
+    (userData && userData.userType === "TEACHER")
+  );
 };

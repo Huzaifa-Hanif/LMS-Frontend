@@ -1,3 +1,4 @@
+# LMS Platform: Next.js 15,  React, Stripe, Mux, Prisma, Tailwind, MySQL, MONGODB, TypeScript
 
 
 Key Features:
@@ -17,17 +18,18 @@ Key Features:
 - Rich text editor for chapter description
 - Authentication using Clerk
 - ORM using Prisma
-- MySQL database 
-- MongoDB database
+- MySQL database
+- Mongodb database
+- Prisma
 
 ### Prerequisites
 
-**Node version 22.0.0**
+**Node version 22.x.x**
 
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/Huzaifa-Hanif/LMS-Frontend.git
+git clone https://github.com/SyedAbdulRehman1/lms-chatbot.git
 ```
 
 ### Install packages
@@ -39,7 +41,9 @@ npm i
 ### Setup .env file
 
 
+### Setup Prisma
 
+Add MySQL Database (I used PlanetScale)
 
 ```shell
 npx prisma generate

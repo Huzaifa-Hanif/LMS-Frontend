@@ -24,6 +24,7 @@ import { Editor } from "@/components/editor";
 import { Preview } from "@/components/preview";
 import { Checkbox } from "@/components/ui/checkbox";
 import { URL } from "@/app/constants/apiEndpoints";
+import Axios from "@/app/utils/axiosInstance";
 interface ChapterAccessFormProps {
   initialData: Chapter;
   courseId: string;
@@ -57,7 +58,7 @@ export const ChapterAccessForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(
+      await Axios.patch(
         `${URL.UPDATE_COURSE + courseId + URL.CHAPTERS + chapterId}`,
         values
       );

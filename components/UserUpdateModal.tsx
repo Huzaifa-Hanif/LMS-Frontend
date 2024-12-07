@@ -1,4 +1,5 @@
 "use client";
+import { URL } from "@/app/constants/apiEndpoints";
 import Axios from "@/app/utils/axiosInstance";
 import { useEffect, useState } from "react";
 
@@ -49,7 +50,7 @@ const UserUpdateModal = ({ user, onClose, onSubmit }: UserUpdateModalProps) => {
         const imageData = reader.result as string;
         console.log(imageData, "399");
         try {
-          const response = await Axios.put("/api/auth/user", {
+          const response = await Axios.put(URL.GET_USER, {
             id: user.id, // Send the user ID along with other data if needed
             image: imageData, // Send the base64 image data
           });
@@ -80,7 +81,7 @@ const UserUpdateModal = ({ user, onClose, onSubmit }: UserUpdateModalProps) => {
   const handleSubmit = async () => {
     try {
       if (activeTab === "profile") {
-        const response = await Axios.put("/api/auth/user", {
+        const response = await Axios.put(URL.GET_USER, {
           id: user.id,
           name: formData.name,
         });
@@ -95,7 +96,7 @@ const UserUpdateModal = ({ user, onClose, onSubmit }: UserUpdateModalProps) => {
         }
 
         if (hasPassword) {
-          const response = await Axios.put("/api/auth/user", {
+          const response = await Axios.put(URL.GET_USER, {
             id: user.id,
             oldPassword: formData.oldPassword,
             newPassword: formData.newPassword,
@@ -107,7 +108,7 @@ const UserUpdateModal = ({ user, onClose, onSubmit }: UserUpdateModalProps) => {
             onClose();
           }
         } else {
-          const response = await Axios.put("/api/auth/user", {
+          const response = await Axios.put(URL.GET_USER, {
             id: user.id,
 
             newPassword: formData.newPassword,

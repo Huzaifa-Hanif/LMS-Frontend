@@ -122,7 +122,7 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Course chapters
+        Course chapters1
         <Button onClick={toggleCreating} variant="ghost">
           {isCreating ? (
             <>Cancel</>
@@ -166,11 +166,11 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
         <div
           className={cn(
             "text-sm mt-2",
-            !initialData.chapters.length && "text-slate-500 italic"
+            !initialData?.chapters?.length && "text-slate-500 italic"
           )}
         >
           {/* {!initialData.chapters.length && "No chapters"} */}
-          {!chapters.length && "No chapters"}
+          {!chapters?.length && "No chapters"}
           <ChaptersList
             onEdit={onEdit}
             onReorder={onReorder}

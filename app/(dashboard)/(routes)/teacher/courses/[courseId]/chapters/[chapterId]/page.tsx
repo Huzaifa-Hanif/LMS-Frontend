@@ -55,6 +55,7 @@ const ChapterIdPage = (props: { params: Params }) => {
   const router = useRouter();
 
   useEffect(() => {
+    console.log(111);
     const fetchChapter = async () => {
       try {
         // const res = await Axios.get(

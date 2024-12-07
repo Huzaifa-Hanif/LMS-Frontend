@@ -20,7 +20,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-
+import Axios from "@/app/utils/axiosInstance";
+import { URL } from "@/app/constants/apiEndpoints";
 interface TitleFormProps {
   initialData: {
     title: string;
@@ -53,7 +54,12 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       // await axios.patch(`/api/courses/${courseId}`, values);
-      await axios.patch(`/api/courses/${courseId}?userId=${userId}`, values); // Pass userId as a query param
+      await Axios.patch(
+        `${URL.UPDATE_COURSE + courseId}?userUd=${userId}`,
+        values
+      );
+
+      // await axios.patch(`/api/courses/${courseId}?userId=${userId}`, values); // Pass userId as a query param
 
       toast.success("Course updated");
       toggleEdit();

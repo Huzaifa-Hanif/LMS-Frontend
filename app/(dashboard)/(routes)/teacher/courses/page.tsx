@@ -7,7 +7,6 @@ import useCourses from "./useCourses";
 
 const CoursesPage = () => {
   const loggedInUserData = getUserDataFromLocalStorage();
-  console.log(loggedInUserData, "course");
   // const loggedInUserData = useSelector((state: RootState) => state.user.user);
   // const [isLoadingUser, setIsLoadingUser] = useState(true);
 

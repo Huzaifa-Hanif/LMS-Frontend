@@ -43,18 +43,19 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`${API_URL.UPDATE_COURSE + courseId}`, values);
+      // await axios.patch(`${API_URL.UPDATE_COURSE + courseId}`, values);
       toast.success("Course updated");
-      console.log(values, "vvallu");
-      if (isNest) {
-        setPreviewImage(
-          process.env.NEXT_PUBLIC_API_BASE_URL_NEST + values.imageUrl
-        );
-      } else {
-        setPreviewImage(values.imageUrl);
-      }
+      // console.log(values, "vvallu");
+      // if (isNest) {
+      //   setPreviewImage(
+      //     process.env.NEXT_PUBLIC_API_BASE_URL_NEST + values.imageUrl
+      //   );
+      // }
+      // // else {
+      //   setPreviewImage(values.imageUrl);
+      // }
       toggleEdit();
-      router.refresh();
+      // router.refresh();
     } catch {
       toast.error("Something went wrong");
     }
@@ -83,6 +84,8 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
             },
           }
         );
+        console.log(response.data.url, "response.data.urlresponse.data.url");
+        setPreviewImage(response.data.url);
 
         if (response.data.url) {
           onSubmit({ imageUrl: response.data.url });
@@ -135,7 +138,7 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
                   : isNest
                   ? process.env.NEXT_PUBLIC_API_BASE_URL_NEST +
                     initialData.imageUrl // Use backend URL if in NestJS environment
-                  : initialData.imageUrl // Fallback to the original image URL
+                  : previewImage // Fallback to the original image URL
               }?t=${Date.now()}`} // Append timestamp to URL
 
               // src={`${

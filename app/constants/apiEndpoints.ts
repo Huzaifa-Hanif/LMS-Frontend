@@ -2,6 +2,7 @@ const isNest = process.env.NEXT_PUBLIC_API_BACKEND === "true";
 
 export const URL = {
   REGISTER_USER: isNest ? "/auth/register" : "/api/auth/register",
+  GET_USER: isNest ? "/auth/user/" : "/api/auth/user/",
   CREATE_COURSE: isNest ? "/courses/" : "/api/courses/",
   GET_COURSES: isNest ? "/courses" : "/api/courses/",
   UPDATE_COURSE: isNest ? "/courses/" : "/api/courses/",
@@ -14,7 +15,8 @@ export const URL = {
   CATEGORIES_AND_COURSES: isNest
     ? "categories-and-courses"
     : "/api/categories-and-courses",
-  LOGIN_USER: "/auth/login",
+  LOGIN_USER: "/login",
+  // LOGIN_USER: "/auth/login",
   COURSE_UNIQUE: isNest ? "/courses/courseUnique/" : "/api/courseUnique/",
   COURSE_WITH_PROGRESS: isNest
     ? "/courses/course-with-progress/"

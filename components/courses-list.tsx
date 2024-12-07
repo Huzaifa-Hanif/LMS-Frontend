@@ -22,11 +22,7 @@ export const CoursesList = ({ items }: CoursesListProps) => {
             key={item.id}
             id={item.id}
             title={item.title}
-            imageUrl={
-              isNest
-                ? process.env.NEXT_PUBLIC_API_BASE_URL_NEST + item.imageUrl!
-                : item.imageUrl!
-            }
+            imageUrl={isNest ? item.imageUrl! : item.imageUrl!}
             chaptersLength={item.chapters.length}
             price={item.price!}
             progress={item.progress}

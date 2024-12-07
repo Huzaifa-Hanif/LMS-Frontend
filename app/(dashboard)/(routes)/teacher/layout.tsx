@@ -19,7 +19,9 @@ const TeacherLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   // Check if the user is a TEACHER
-  const isTeacher = loggedInUserData.type === "TEACHER";
+  const isTeacher =
+    loggedInUserData.type === "TEACHER" ||
+    loggedInUserData?.userType === "TEACHER";
 
   return (
     <div>

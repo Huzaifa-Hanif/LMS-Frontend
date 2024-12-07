@@ -56,7 +56,6 @@ const CourseLayout = ({
         const response = await Axios.get(
           `${URL.COURSE_WITH_PROGRESS + courseId}`
         );
-        console.log(response.data, "API Response");
 
         if (response.status === 401) {
           return redirect("/");

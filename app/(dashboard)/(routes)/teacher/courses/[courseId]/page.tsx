@@ -84,7 +84,7 @@ const CourseIdPage = (props: { params: Params }) => {
     course.imageUrl,
     course.price,
     // course.categoryId,
-    course.chapters.some((chapter: any) => chapter.isPublished),
+    course?.chapters?.some((chapter: any) => chapter?.isPublished),
   ];
 
   const totalFields = requiredFields.length;

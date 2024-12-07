@@ -46,6 +46,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "class-variance-authority": "^0.7.0",
+    "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "eslint": "9.13.0",

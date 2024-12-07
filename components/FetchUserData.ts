@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { DecodeToken } from "@/app/utils/decodeToken";
+import AxiosLogin from "@/app/utils/axiosInstanceLogin";
+import { URL } from "@/app/constants/apiEndpoints";
+import Axios from "@/app/utils/axiosInstance";
 
 export default function FetchUserData() {
   const dispatch = useDispatch();
@@ -23,17 +26,30 @@ export default function FetchUserData() {
       if (accessToken) {
         try {
           const decodedUser = await DecodeToken(accessToken);
-          decodedUser.hasPassword = false;
-          const response = await fetch(`/api/auth/user/${decodedUser.id}`);
+          // const updatedUser = { ...decodedUser, hasPassword: false };
+          // Check if the object is frozen, and create a copy if necessary
+          const updatedUser = Object.isFrozen(decodedUser)
+            ? JSON.parse(JSON.stringify(decodedUser)) // Create a deep copy
+            : { ...decodedUser }; // Shallow copy
 
-          const data = await response.json();
+          updatedUser.hasPassword = false; // Now we can modify this object
+
+          // decodedUser.hasPassword = false;
+          const response = await Axios.get(`${URL.GET_USER + updatedUser.id}`);
+
+          const data = await response.data;
           console.log(data, "datata");
           dispatch(setHasPassword(data.hasPassword));
-          dispatch(setLoggedInUserData(decodedUser));
-          decodedUser.hasPassword = data.hasPassword;
+          dispatch(setLoggedInUserData(updatedUser));
+          const updatedUser1 = Object.isFrozen(data)
+            ? JSON.parse(JSON.stringify(data)) // Create a deep copy
+            : { ...data }; // Shallow copy
 
-          dispatch(setLoggedInUserData(decodedUser));
-          localStorage.setItem("user", JSON.stringify(decodedUser));
+          // updatedUser.hasPassword = data.hasPassword;
+          // updatedUser1.hasPassword = data.hasPassword;
+
+          dispatch(setLoggedInUserData(updatedUser));
+          localStorage.setItem("user", JSON.stringify(updatedUser));
         } catch (error) {
           console.error("Error decoding token:", error);
         }

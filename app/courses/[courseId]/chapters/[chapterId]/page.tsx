@@ -38,14 +38,14 @@ const ChapterIdPage = (props: { params: Params }) => {
         const response = await Axios.get(
           `${URL.GET_CHAPTER_COURSE_ID + courseId}&chapterId=${chapterId}`
         );
-
+        // console.log(response, "39393939");
         if (response.data.error) {
           setError(response.data.error);
           return;
         }
         setData(response.data);
       } catch (err) {
-        setError("Error fetching data");
+        setError("Error fetching data" + err);
       } finally {
         setLoading(false);
       }

@@ -51,7 +51,6 @@ const ChatArea = () => {
     console.log("Attempting to create new chat with data:", chatData);
     try {
       const res = await Axios.post(URL.CREATE_CHAT, chatData);
-      console.log("API response:", res);
 
       if (res.status < 200 || res.status >= 300) {
         throw new Error("Failed to create chat");

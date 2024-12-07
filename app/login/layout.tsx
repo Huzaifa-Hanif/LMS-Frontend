@@ -35,13 +35,13 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         strategy="lazyOnload"
       />
-      <Script src="/lib/wow/wow.min.js" strategy="lazyOnload" />
+      {/* <Script src="/lib/wow/wow.min.js" strategy="lazyOnload" />
       <Script src="/lib/easing/easing.min.js" strategy="lazyOnload" />
       <Script src="/lib/waypoints/waypoints.min.js" strategy="lazyOnload" />
       <Script
         src="/lib/owlcarousel/owl.carousel.min.js"
         strategy="lazyOnload"
-      />
+      /> */}
       <Script src="/js/main.js" strategy="lazyOnload" />
       <Script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
