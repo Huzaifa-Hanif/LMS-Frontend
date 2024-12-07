@@ -1,7 +1,8 @@
 const isNest = process.env.NEXT_PUBLIC_API_BACKEND === "true";
 
 export const URL = {
-  REGISTER_USER: isNest ? "/auth/register" : "/api/auth/register",
+  // REGISTER_USER: isNest ? "/auth/register" : "/api/auth/register",
+  REGISTER_USER: isNest ? "/register" : "/api/auth/register",
   GET_USER: isNest ? "/auth/user/" : "/api/auth/user/",
   CREATE_COURSE: isNest ? "/courses/" : "/api/courses/",
   GET_COURSES: isNest ? "/courses" : "/api/courses/",

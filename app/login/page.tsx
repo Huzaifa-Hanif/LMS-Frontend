@@ -56,8 +56,10 @@ export default function Login() {
         toast.error(response.response.data.message ?? response.response.data!);
       } else if (response.status == "success") {
         toast.success(response.message);
+        router.push("/login");
       } else {
         toast.success(response);
+        router.push("/login");
       }
       // } catch (error) {
       // console.error("Error:", error);

@@ -87,7 +87,7 @@ export const useAuth = (errorCb?: ErrorCb) => {
     try {
       const res = await AxiosLogin.post(URL.REGISTER_USER, data);
       setLoading(false);
-      console.log(res, "resssssssssss");
+      // console.log(res, "resssssssssss");
       return res.data;
       // const res = await makeRequest<ApiResponse<any>>(
       //   URL.REGISTER_USER,
