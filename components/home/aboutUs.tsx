@@ -14,7 +14,7 @@ export default function AboutUs() {
             >
               <div className="position-relative h-100">
                 <Image
-                  src="/img/cloud.jpg"
+                  src="/img/portrate.jpg"
                   alt=""
                   layout="fill"
                   objectFit="cover"

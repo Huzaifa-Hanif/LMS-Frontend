@@ -24,7 +24,7 @@ export default function Categories() {
                     href="#"
                   >
                     <Image
-                      src="/img/cat-1.jpg"
+                      src="/img/web.png"
                       alt="Cat"
                       layout="responsive"
                       width={800}
@@ -50,7 +50,7 @@ export default function Categories() {
                     href="#"
                   >
                     <Image
-                      src="/img/cat-2.jpg"
+                      src="/img/graphic design.jpg"
                       alt="Cat"
                       layout="responsive"
                       width={800}
@@ -84,7 +84,7 @@ export default function Categories() {
                     // quality={100} 
                   /> */}
                     <Image
-                      src="/img/cat-3.jpg"
+                      src="/img/video edit.jpg"
                       alt="Cat"
                       layout="responsive"
                       width={800}
@@ -114,7 +114,7 @@ export default function Categories() {
                 href="#"
               >
                 <Image
-                  src="/img/cat-4.jpg"
+                  src="/img/cloud.jpg"
                   alt=""
                   layout="fill"
                   objectFit="cover"
