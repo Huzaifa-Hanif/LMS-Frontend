@@ -56,7 +56,10 @@ export default function Login() {
       } else if (response.status == "success") {
         toast.success(response.message);
         router.push("/login");
-      } else {
+      }else if (response.status == 500) {
+        toast.error(response.response.data.message);
+      } 
+      else {
         toast.success(response.message);
         router.push("/login");
       }
