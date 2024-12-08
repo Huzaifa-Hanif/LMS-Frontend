@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { getSession, signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { FieldValues } from "react-hook-form";
 import { redirect, useRouter } from "next/navigation";
 // import { useDispatch } from "react-redux";
@@ -25,8 +25,21 @@ export const useAuth = (errorCb?: ErrorCb) => {
   const [loadingGoogle, setLoadingGoogle] = useState<boolean>(false);
   const [loadingFacebook, setLoadingFacebook] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const { data: session, status } = useSession(); // Use session hook to access session
 
   const router = useRouter();
+  useEffect(() => {
+    if (status === "authenticated" && session) {
+      if (session.accessToken) {
+        localStorage.setItem("accessToken", session.accessToken);
+        router.push("/dashboard");
+      }
+    }
+  }, [status, session]);
+
+  // if (status === 'loading') {
+  //   return <div>Loading...</div>; // Show a loading spinner while checking session
+  // }
 
   const socialActions = (action: string) => {
     if (action === "facebook") setLoadingFacebook(true);
@@ -38,6 +51,14 @@ export const useAuth = (errorCb?: ErrorCb) => {
         console.log("error", cb?.error);
       }
       if (cb?.ok && !cb?.error) {
+        const { data: session }: any = useSession(); // Get the session object
+
+        if (session?.accessToken) {
+          // session.accessToken -= token.access_token;
+          console.log("Access Token:", session?.accessToken); // Log the access token
+          // You can now use the access token here
+        }
+
         router.push("/chatbot");
       }
     });
@@ -52,7 +73,7 @@ export const useAuth = (errorCb?: ErrorCb) => {
       console.log(data, "data");
       setLoading(false);
       redirect("/login");
-      return data;
+      // return data;
     } catch (error) {
       setLoading(false);
       throw error;
@@ -221,7 +242,6 @@ export const useAuth = (errorCb?: ErrorCb) => {
           if (session) {
             const user = session.user;
             if (user) {
-              console.log(user, "ttt");
               await dispatch(setLoggedInUserData(user));
               message.success("Login successful!");
             }
