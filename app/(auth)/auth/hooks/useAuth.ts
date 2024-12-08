@@ -51,7 +51,7 @@ export const useAuth = (errorCb?: ErrorCb) => {
         console.log("error", cb?.error);
       }
       if (cb?.ok && !cb?.error) {
-        const { data: session }: any = useSession(); // Get the session object
+        // const { data: session }: any = useSession(); // Get the session object
 
         if (session?.accessToken) {
           // session.accessToken -= token.access_token;
