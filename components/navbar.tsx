@@ -1,9 +1,10 @@
-"use client"; // Ensure this component is rendered on the client side
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"; // Import useSelector to access Redux store
-import { signOut } from "next-auth/react"; // Import signOut from next-auth
+"use client";
+import { useCallback, useState } from "react";
+import Cookies from "js-cookie";
+
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "next-auth/react";
 import { RootState } from "@/app/store/store";
-import { clearUserData } from "@/app/store/userSlice";
 import Link from "next/link";
 import Image from "next/image";
 import UserUpdateModal from "./UserUpdateModal";
@@ -34,17 +35,17 @@ export default function Navbar() {
 
   // Function to handle logout
   const handleLogout = () => {
-    dispatch(clearUserData());
+    // dispatch(clearUserData());
     localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+    Cookies.set("accessToken", "expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/");
+    Cookies.remove("accessToken");
     signOut({ callbackUrl: "/" });
-    // signOut({ callbackUrl: "/" }); // Redirect to home or login page after logout
+    // signOut({ callbackUrl: "/" });
   };
 
   const handleUpdateUser = (updatedUser: any) => {
-    console.log("User updated:", updatedUser);
-    // Make an API call to update user details in the database
     setIsModalOpen(false); // This should close the modal
-    console.log("Modal State:", isModalOpen); // Check if the state updates
   };
   const handleClose = useCallback(() => {
     setIsModalOpen(false);
