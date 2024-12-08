@@ -21,7 +21,7 @@ export const authOptions: AuthOptions = {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
-          image: profile.picture,
+          // image: profile.picture,
           role: profile.role ?? "user",
         };
       },
@@ -84,7 +84,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (existingUser) {
-          console.log("existing user", existingUser);
+          // console.log("existing user", existingUser);
 
           // Link the Google account to the existing user
           await prisma.account.upsert({
@@ -111,43 +111,50 @@ export const authOptions: AuthOptions = {
         }
       }
 
-      console.log("User:", user);
-      console.log("Account:", account);
-      console.log("Profile:", profile);
+      // console.log("User:", user);
+      // console.log("Account:", account);
+      // console.log("Profile:", profile);
       user.role = "STUDENT"; // Replace with a valid enum value if needed
       return true; // Allow sign-ins for other providers
     },
-    async session({ session, token, user }) {
+    async session({ session, token, user, profile }: any) {
+      // console.log(user, "useruser", profile, "profileprofileprofileprofile");
       if (token.sub) {
         const user = await prisma.user.findUnique({
           where: { id: token.sub },
         });
+        // console.log(session, "sss");
         if (session.user && user) {
           session.user.id = user.id;
           session.user.email = user.email;
           (session.user.type = user.userType), (session.user.role = user.role);
-          session.user.image = user.image;
+          // session.user.image = user.image;
+          session.accessToken = token.id_token;
           session.user.name = user.name;
         }
       }
 
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
-        token.picture = user.image;
+        // token.picture = user.image;
         token.role = user.role;
+        if (account?.access_token) {
+          token.id_token = account.id_token;
+          token.access_token = account.access_token;
+        }
       }
       return token;
     },
   },
   debug: process.env.NODE_ENV === "development",
+  secret: process.env.SECRET || "your_secret_key",
   session: {
     strategy: "jwt",
     maxAge: 24 * 60 * 60, // 24 hours in seconds
   },
-  secret: process.env.SECRET,
 };
