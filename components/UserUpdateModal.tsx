@@ -1,7 +1,10 @@
 "use client";
 import { URL } from "@/app/constants/apiEndpoints";
+import { clearUserData } from "@/app/store/userSlice";
 import Axios from "@/app/utils/axiosInstance";
+import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 interface UserUpdateModalProps {
   user: {
@@ -30,9 +33,9 @@ const UserUpdateModal = ({ user, onClose, onSubmit }: UserUpdateModalProps) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    console.log(user, "dfifi");
     setHasPassword(user.hasPassword);
   }, [user]);
+  const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -136,7 +139,14 @@ const UserUpdateModal = ({ user, onClose, onSubmit }: UserUpdateModalProps) => {
       onClose();
     }
   };
+  const handleLogout = async () => {
+    // dispatch(clearUserData());
+    localStorage.removeItem("user");
+    signOut({ callbackUrl: "/" });
+    // window.location.reload(); // Page ko reload karne ke liye
 
+    // signOut({ callbackUrl: "/" }); // Redirect to home or login page after logout
+  };
   return (
     <div
       onClick={handleOverlayClick}
@@ -190,6 +200,16 @@ const UserUpdateModal = ({ user, onClose, onSubmit }: UserUpdateModalProps) => {
               onClick={() => setActiveTab("password")}
             >
               Password
+            </div>
+            <div
+              className={`p-2 text-center  cursor-pointer transition-all duration-300 ${
+                activeTab === "password"
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-600 hover:bg-blue-600 hover:text-white"
+              }`}
+              onClick={handleLogout}
+            >
+              Logout
             </div>
           </div>
 

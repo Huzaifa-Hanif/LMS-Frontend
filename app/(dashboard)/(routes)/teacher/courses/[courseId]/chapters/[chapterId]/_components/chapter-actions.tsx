@@ -67,7 +67,7 @@ export const ChapterActions = ({
     try {
       setIsLoading(true);
 
-      await axios.delete(
+      await Axios.delete(
         `${URL.UPDATE_COURSE + courseId + URL.CHAPTERS + chapterId}`
       );
 
