@@ -15,7 +15,7 @@ export default function Service() {
                 <div className="p-4">
                   <i className="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
                   <h5 className="mb-3">Skilled Instructors</h5>
-                  <p>From all over he world</p>
+                  <p>From all over the world</p>
                 </div>
               </div>
             </div>

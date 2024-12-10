@@ -47,7 +47,7 @@ export default function Header() {
           <Link href="/courses" className="nav-item nav-link">
             Courses
           </Link>
-          <div className="nav-item dropdown">
+          {/* <div className="nav-item dropdown">
             <Link
               href="#"
               className="nav-link dropdown-toggle"
@@ -66,7 +66,7 @@ export default function Header() {
                 404 Page
               </Link>
             </div>
-          </div>
+          </div> */}
           <Link href="/contact" className="nav-item nav-link">
             Contact
           </Link>
